@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import pdb.pizzaria.model.Cliente;
+import pdb.pizzaria.model.ItemPedido;
 import pdb.pizzaria.model.Pedido;
 import pdb.pizzaria.repository.ClienteRepository;
 import pdb.pizzaria.repository.PedidoRepository;
@@ -37,8 +38,8 @@ public class DadosIniciais {
 
         clienteRepo.saveAll(clientes);
 
-
-        pedidoRepo.save(new Pedido(1L, LocalDate.now(), LocalTime.now(), 50, BigDecimal.valueOf(250), cliente1));
+        List<ItemPedido> itensVazios = new ArrayList<>();
+        pedidoRepo.save(new Pedido(1L, LocalDate.now(), LocalTime.now(), 50, BigDecimal.valueOf(250), cliente1, itensVazios));
 
         
     }
