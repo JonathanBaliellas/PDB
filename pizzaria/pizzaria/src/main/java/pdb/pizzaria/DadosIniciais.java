@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import pdb.pizzaria.model.Cliente;
+import pdb.pizzaria.model.Entrega;
 import pdb.pizzaria.model.ItemPedido;
 import pdb.pizzaria.model.Pedido;
 import pdb.pizzaria.repository.ClienteRepository;
+import pdb.pizzaria.repository.EntregaRepository;
 import pdb.pizzaria.repository.PedidoRepository;
 
 @Component
@@ -23,6 +25,9 @@ public class DadosIniciais {
 
     @Autowired
     private PedidoRepository pedidoRepo;
+
+    @Autowired
+    private EntregaRepository entregaRepo;
 
     @PostConstruct
     public void init() {
@@ -38,8 +43,13 @@ public class DadosIniciais {
 
         clienteRepo.saveAll(clientes);
 
+        Entrega entrega1 = new Entrega(1L, LocalDate.now(), LocalTime.now(), "Cartão", "321qwer", pedidosVazios);
+
+        List<Entrega> entregas = List.of(entrega1);
+        entregaRepo.saveAll(entregas);
+
         List<ItemPedido> itensVazios = new ArrayList<>();
-        pedidoRepo.save(new Pedido(1L, LocalDate.now(), LocalTime.now(), 50, BigDecimal.valueOf(250), cliente1, itensVazios));
+        pedidoRepo.save(new Pedido(1L, LocalDate.now(), LocalTime.now(), 50, BigDecimal.valueOf(250), cliente1, itensVazios, entrega1));
 
         
     }
